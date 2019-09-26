@@ -1,0 +1,38 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 574
+  ClientWidth = 712
+  Color = clActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Memo1: TMemo
+    Left = 32
+    Top = 24
+    Width = 649
+    Height = 497
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -53
+    Font.Name = 'Edwardian Script ITC'
+    Font.Style = []
+    Lines.Strings = (
+      'Relatotio de caixa')
+    ParentFont = False
+    TabOrder = 0
+  end
+  object ZQuery1: TZQuery
+    Params = <>
+    Left = 8
+    Top = 16
+  end
+end

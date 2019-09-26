@@ -1,0 +1,1 @@
+mysqldump -h localhost -u root panificadora<C:\Backup\backup.sql

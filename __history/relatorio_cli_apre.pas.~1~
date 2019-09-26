@@ -1,0 +1,28 @@
+unit relatorio_cli_apre;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm_Cliente = class(TForm)
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    ZQuery1: TZQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_Cliente: TForm_Cliente;
+
+implementation
+
+{$R *.dfm}
+
+end.

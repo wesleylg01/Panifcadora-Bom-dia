@@ -1,0 +1,122 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Mensagens de Erro'
+  ClientHeight = 433
+  ClientWidth = 791
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 72
+    Top = 40
+    Width = 428
+    Height = 24
+    Caption = '001 - Campo vazio ao tentar realizar cadastro'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 72
+    Top = 88
+    Width = 267
+    Height = 24
+    Caption = '002 - login ou senha invalido'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 72
+    Top = 136
+    Width = 279
+    Height = 24
+    Caption = '003 - Usuario n'#227'o cadastrado'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 72
+    Top = 184
+    Width = 318
+    Height = 24
+    Caption = '004 - Produto em falta no estoque'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 72
+    Top = 232
+    Width = 341
+    Height = 24
+    Caption = '005 - Cliente ou CPF ja cadastrados'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 72
+    Top = 280
+    Width = 396
+    Height = 24
+    Caption = '006 - Fornecedor ou CNPJ ja cadastrados'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 72
+    Top = 328
+    Width = 361
+    Height = 24
+    Caption = '007 - CPF Ja em uso por outo Usu'#225'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 72
+    Top = 376
+    Width = 349
+    Height = 24
+    Caption = '008 - Nome de Usu'#225'rio ja cadastrado'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+end

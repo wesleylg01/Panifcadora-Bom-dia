@@ -1,0 +1,62 @@
+unit Consulta_Produto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.ImgList, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.DBCtrls;
+
+type
+TDBNewNavigator = class (TDBNavigator);
+  TForm_ConProduto = class(TForm)
+    DBGrid1: TDBGrid;
+    ZQuery1: TZQuery;
+    DataSource1: TDataSource;
+    ImageList1: TImageList;
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure listar;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_ConProduto: TForm_ConProduto;
+  vlcel,teste: String;
+implementation
+uses con_clientes, Buttons;
+{$R *.dfm}
+
+procedure TForm_ConProduto.Button1Click(Sender: TObject);
+begin
+DBGrid1.ReadOnly:= false;
+end;
+
+procedure TForm_ConProduto.DBGrid1DblClick(Sender: TObject);
+begin
+   vlcel:= DBGrid1.SelectedField.AsString;
+   teste := 'consulta_geral';
+   if  Form_EditarPro = nil then
+   Application.CreateForm(TForm_EditarPro,  Form_EditarPro);
+   Form_EditarPro.ShowModal;
+end;
+
+procedure TForm_ConProduto.FormActivate(Sender: TObject);
+begin
+listar;
+end;
+
+procedure TForm_ConProduto.listar;
+begin
+  ZQuery1.Close;
+  ZQuery1.SQL.Clear;
+  ZQuery1.SQL.Add('select * from produto');
+  ZQuery1.Open;
+
+end;
+end.

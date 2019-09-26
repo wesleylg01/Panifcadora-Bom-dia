@@ -1,0 +1,56 @@
+unit fornecedores;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls;
+
+type
+TDBNewNavigator = class (TDBNavigator);
+  TForm_fornecedore = class(TForm)
+    ZQuery1: TZQuery;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure listar;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_fornecedore: TForm_fornecedore;
+   B: TNavigateBtn;
+implementation
+uses Cad_Cidade, Buttons;
+
+{$R *.dfm}
+
+procedure TForm_fornecedore.DBGrid1DblClick(Sender: TObject);
+begin
+Form_AlterarFornecedores := TForm_AlterarFornecedores.create(self);
+Form_AlterarFornecedores.Show;
+Form_fornecedore.Close;
+end;
+
+procedure TForm_fornecedore.FormActivate(Sender: TObject);
+begin
+listar;
+end;
+procedure TForm_fornecedore.listar;
+begin
+  ZQuery1.Close;
+  ZQuery1.SQL.Clear;
+  ZQuery1.SQL.Add('Select * from fornecedor');
+  ZQuery1.Open;
+end;
+
+
+end.
+
+

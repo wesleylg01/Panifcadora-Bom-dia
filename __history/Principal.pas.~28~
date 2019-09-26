@@ -1,0 +1,279 @@
+unit Principal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.StdCtrls, Vcl.Menus, Vcl.Imaging.jpeg, Vcl.ImgList,login;
+
+type
+
+  TForm_Principal = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastros1: TMenuItem;
+    Geral1: TMenuItem;
+    Sair1: TMenuItem;
+    CadastrodeProduto1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Venda1: TMenuItem;
+    Clientes1: TMenuItem;
+    Ajuda1: TMenuItem;
+    Sobre1: TMenuItem;
+    Consultas1: TMenuItem;
+    Estoque1: TMenuItem;
+    Fornecedor1: TMenuItem;
+    Usurio1: TMenuItem;
+    Clientes2: TMenuItem;
+    Fornecedor2: TMenuItem;
+    Fornecedores1: TMenuItem;
+    Usurios1: TMenuItem;
+    Pesquisar1: TMenuItem;
+    ImageList1: TImageList;
+    MovimentaodoCaixa1: TMenuItem;
+    Backup1: TMenuItem;
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    procedure Sair1Click(Sender: TObject);
+    procedure EfetuarTransao1Click(Sender: TObject);
+    procedure Cadastrar1Click(Sender: TObject);
+    procedure Consultar1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure CadastrodeProduto1Click(Sender: TObject);
+    procedure Geral1Click(Sender: TObject);
+    procedure Estoque1Click(Sender: TObject);
+    procedure Fornecedor1Click(Sender: TObject);
+    procedure Fornecedor2Click(Sender: TObject);
+    procedure Usurio1Click(Sender: TObject);
+    procedure Produtos1Click(Sender: TObject);
+    procedure Fornecedores1Click(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
+    procedure Pesquisar1Click(Sender: TObject);
+    procedure MovimentaodoCaixa1Click(Sender: TObject);
+    procedure Venda1Click(Sender: TObject);
+    procedure Clientes2Click(Sender: TObject);
+    procedure Usurios1Click(Sender: TObject);
+    procedure Sobre1Click(Sender: TObject);
+    procedure Backup1Click(Sender: TObject);
+    procedure Ajuda1Click(Sender: TObject);
+    procedure Label1DblClick(Sender: TObject);
+    procedure Label2DblClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_Principal: TForm_Principal;
+  entrar_pdv:Boolean;
+
+implementation
+{$R *.dfm}
+
+uses Cad_Geral, Cad_Produto, Trasacao, Consulta_Produto, Cad_Estado,clientes,fornecedores,
+  ralatorio_produto,relatorio_cli,relatorio_fornecedores, relatorio_for_apre, relatorio_clientes,
+   padocks, caixa,mov_caixa,Relatorio_caixa_apre,usuarios,sobre,backup,ajuda,teste;
+
+procedure TForm_Principal.Ajuda1Click(Sender: TObject);
+begin
+if (Form_ajuda=Nil) then Application.CreateForm(TForm_ajuda, Form_ajuda);
+   Form_ajuda.ShowModal;
+end;
+
+procedure TForm_Principal.Backup1Click(Sender: TObject);
+begin
+if (Form_backup=Nil) then Application.CreateForm(TForm_backup, Form_backup);
+   Form_backup.showModal;
+
+end;
+
+procedure TForm_Principal.Cadastrar1Click(Sender: TObject);
+begin
+if (Form_CadProduto=Nil) then Application.CreateForm(TForm_CadProduto, Form_CadProduto);
+   Form_CadProduto.ShowModal;
+end;
+
+procedure TForm_Principal.CadastrodeProduto1Click(Sender: TObject);
+begin
+if (Form_CadProduto=Nil) then Application.CreateForm(TForm_CadProduto, Form_CadProduto);
+   Form_CadProduto.ShowModal;
+end;
+
+procedure TForm_Principal.Clientes1Click(Sender: TObject);
+begin
+   if Form_clientes_apre = nil then
+   Application.CreateForm(TForm_clientes_apre, Form_clientes_apre);
+   Form_clientes_apre.ShowModal;
+
+end;
+
+procedure TForm_Principal.Clientes2Click(Sender: TObject);
+begin
+  if (Form_Clientes=Nil) then Application.CreateForm(TForm_Clientes, Form_Clientes);
+   Form_Clientes.ShowModal;
+end;
+
+procedure TForm_Principal.Consultar1Click(Sender: TObject);
+begin
+if (Form_ConProduto=Nil) then Application.CreateForm(TForm_ConProduto, Form_ConProduto);
+   Form_ConProduto.ShowModal;
+end;
+
+procedure TForm_Principal.EfetuarTransao1Click(Sender: TObject);
+begin
+if (Form_CadUsuarios=Nil) then Application.CreateForm(TForm_CadUsuarios, Form_CadUsuarios);
+   Form_CadUsuarios.ShowModal;
+
+end;
+
+procedure TForm_Principal.Estoque1Click(Sender: TObject);
+begin
+   if Form_ConProduto = nil then
+   Application.CreateForm(TForm_ConProduto, Form_ConProduto);
+   Form_ConProduto.ShowModal;
+end;
+
+procedure TForm_Principal.FormActivate(Sender: TObject);
+begin
+
+if form_login = nil then
+   Application.CreateForm(TForm_Login, Form_Login);
+   Form_Login.ShowModal;
+   Label5.Caption := 'Usuário: '+ nomecomple;
+   end;
+
+procedure TForm_Principal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Action:= cafree;
+Form_Principal:= nil;
+end;
+
+
+
+procedure TForm_Principal.FormCreate(Sender: TObject);
+begin
+entrar_pdv := false;
+end;
+
+procedure TForm_Principal.Fornecedor1Click(Sender: TObject);
+begin
+   if Form_CadFornecedores = nil then
+   Application.CreateForm(TForm_CadFornecedores, Form_CadFornecedores);
+   Form_CadFornecedores.ShowModal;
+end;
+
+procedure TForm_Principal.Fornecedor2Click(Sender: TObject);
+begin
+if Form_fornecedore = nil then
+   Application.CreateForm(TForm_fornecedore, Form_fornecedore);
+   Form_fornecedore.ShowModal;
+end;
+
+procedure TForm_Principal.Fornecedores1Click(Sender: TObject);
+begin
+if Form_rela_Forne = nil then
+   Application.CreateForm(TForm_rela_Forne, Form_rela_Forne);
+   Form_rela_Forne.ShowModal;
+end;
+
+procedure TForm_Principal.Geral1Click(Sender: TObject);
+begin
+if form_cadgeral = nil then
+   Application.CreateForm(TForm_CadGeral, Form_CadGeral);
+   Form_CadGeral.ShowModal;
+end;
+
+procedure TForm_Principal.Label1DblClick(Sender: TObject);
+begin
+if (Form_entracx=Nil) then Application.CreateForm(TForm_entracx, Form_entracx);
+   Form_entracx.ShowModal;
+end;
+
+procedure TForm_Principal.Label2DblClick(Sender: TObject);
+begin
+sair := 0;
+if abriucx = '' then
+abriucx:= FormatDateTime('hh:nn',now)
+else
+abriucx := abriucx;
+ if entrar_pdv = true then
+   begin
+      sairvenda := true;
+      if (Form_pdv=Nil) then Application.CreateForm(TForm_pdv, Form_pdv);
+         Form_pdv.ShowModal;
+      end
+        else
+          begin
+            showmessage ('ATENÇÃO ! VOCÊ DEVE ABRIR O CAIXA, ANTES DE REALIZAR UMA VENDA !');
+          end;
+ end;
+
+procedure TForm_Principal.MovimentaodoCaixa1Click(Sender: TObject);
+begin
+   if Form_movicaixa = nil then
+   Application.CreateForm(TForm_movicaixa, Form_movicaixa);
+   Form_movicaixa.ShowModal;
+end;
+
+procedure TForm_Principal.Pesquisar1Click(Sender: TObject);
+begin
+   if Form_pesquisapro = nil then
+   Application.CreateForm(TForm_pesquisapro, Form_pesquisapro);
+   Form_pesquisapro.ShowModal;
+end;
+
+procedure TForm_Principal.Produtos1Click(Sender: TObject);
+begin
+if Form_RelatorioPro = nil then
+   Application.CreateForm(TForm_RelatorioPro, Form_RelatorioPro);
+   Form_RelatorioPro.ShowModal;
+end;
+
+procedure TForm_Principal.Sair1Click(Sender: TObject);
+begin
+  if sairvenda = true then
+    begin
+    application.MessageBox('Atenção! o caixa ainda está aberto, Feche o caixa para poder sair !!!','Atenção Usuário',MB_ICONERROR);
+    end
+    else
+      if application.MessageBox('Deseja Fechar o Aplicativo' , 'Atenção' , mb_iconquestion + mb_yesno )= id_yes
+      then Application.Terminate;
+end;
+
+procedure TForm_Principal.Sobre1Click(Sender: TObject);
+begin
+if Form_sobre = nil then
+   Application.CreateForm(TForm_sobre, Form_sobre);
+   Form_sobre.ShowModal;
+end;
+
+procedure TForm_Principal.Usurio1Click(Sender: TObject);
+begin
+if Form_CadUsuarios = nil then
+   Application.CreateForm(TForm_CadUsuarios, Form_CadUsuarios);
+   Form_CadUsuarios.ShowModal;
+end;
+
+procedure TForm_Principal.Usurios1Click(Sender: TObject);
+begin
+   if Form_usuarios = nil then
+   Application.CreateForm(TForm_usuarios, Form_usuarios);
+   Form_usuarios.ShowModal;
+end;
+
+procedure TForm_Principal.Venda1Click(Sender: TObject);
+begin
+   if Form_relatiocx1 = nil then
+   Application.CreateForm(TForm_relatiocx1, Form_relatiocx1);
+   Form_relatiocx1.ShowModal;
+end;
+
+end.

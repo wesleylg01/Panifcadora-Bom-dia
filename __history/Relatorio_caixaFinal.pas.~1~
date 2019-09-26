@@ -1,0 +1,74 @@
+unit Relatorio_caixaFinal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset,Relatorio_caixa_apre;
+
+type
+TForm_Form_relatiocx1 = class (TForm);
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    ZQuery1: TZQuery;
+    procedure FormActivate(Sender: TObject);
+    procedure listar;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+procedure TForm1.listar;
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from caixa Where ( NOME like "'+ vlcelula +'")');
+ZQuery1.Open;
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+var
+nome,tlcompras,tlsan,tlsuple,saldo,tlvendido,ab,fx,situ:String;
+begin
+//pegando dados no banco de dados
+tlcompras:= ZQuery1.FieldbyName('TOTALCOMPRAS').value;
+tlsan:= ZQuery1.FieldbyName('TOTALSAN').value;
+tlsuple:= ZQuery1.FieldbyName('TOTALSUPLE').value;
+saldo:= ZQuery1.FieldbyName('SALDOFINAL').value;
+tlvendido:= ZQuery1.FieldbyName('TOTALVENDIDO').value;
+ab:= ZQuery1.FieldbyName('ABRIUCX').value;
+fx:= ZQuery1.FieldbyName('FECHOUCX').value;
+//pegando o nome da variavel vlcelula pois é o mesmo nome que sera usado e assim fica mais rapido
+nome:= vlcelula;
+Memo1.Font.Name:= 'Edwardian Script ITC';
+Memo1.Font.size := 40;
+memo1.lines.add ('       Relatório De Caixa');
+Memo1.Font.Name:= 'Tahoma';
+Memo1.Font.size := 40;
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Valor Total de Suplementos : '+ FormatFloat('##,##0.00', totalsuple));
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Valor Total de Sangrias : '+ FormatFloat('##,##0.00', totalsan));
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Total de Compras Realizadas : ' + (InttoStr (totalcompras)));
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Valor Total Vendido : '+ FormatFloat('##,##0.00', totaldincx));
+
+end;
+
+end.

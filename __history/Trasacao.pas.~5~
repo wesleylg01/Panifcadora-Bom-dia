@@ -1,0 +1,193 @@
+unit Trasacao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.DBLookup, Xml.xmldom,
+  Xml.XMLIntf, Vcl.Mask, Vcl.ImgList, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, Xml.Win.msxmldom, Xml.XMLDoc, IdBaseComponent,
+  IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
+
+type
+  TForm_CadFornecedores = class(TForm)
+    GroupBox3: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit_razao: TEdit;
+    Edit_cnpj: TEdit;
+    edit_inscri: TEdit;
+    GroupBox6: TGroupBox;
+    Label7: TLabel;
+    Label14: TLabel;
+    IdHTTP1: TIdHTTP;
+    XMLDocument1: TXMLDocument;
+    ZQuery1: TZQuery;
+    DataSource1: TDataSource;
+    ImageList1: TImageList;
+    Edit_fone: TEdit;
+    Edit_mail: TEdit;
+    GroupBox5: TGroupBox;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    MaskEdit_cep: TMaskEdit;
+    Button4: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Edit_rua: TEdit;
+    edit_num: TEdit;
+    Edit_comple: TEdit;
+    Edit_bairro: TEdit;
+    Edit_cid: TEdit;
+    procedure MaskEdit_cepExit(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Salvar;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_CadFornecedores: TForm_CadFornecedores;
+
+implementation
+
+{$R *.dfm}
+procedure TForm_CadFornecedores.salvar;
+begin
+
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('insert into fornecedor(razao,cnpj,inscri,tel,mail,rua,num,comple,cep,bairro,cidade)values(:razao, :cnpj, :inscri,:tel,:mail,:rua,:num,:comple,:cep,:bairro,:cidade)');
+ZQuery1.ParamByName('razao').AsString:= Edit_razao.Text;
+ZQuery1.ParamByName('cnpj').AsString:= Edit_cnpj.Text;
+ZQuery1.ParamByName('tel').AsString:= Edit_fone.Text;
+ZQuery1.ParamByName('inscri').AsString:= edit_inscri.Text;
+ZQuery1.ParamByName('mail').AsString:= Edit_mail.Text;
+ZQuery1.ParamByName('rua').AsString:= Edit_rua.Text;
+ZQuery1.ParamByName('num').AsString:= Edit_num.Text;
+ZQuery1.ParamByName('comple').AsString:= Edit_comple.Text;
+ZQuery1.ParamByName('cep').AsString:= MaskEdit_cep.Text;
+ZQuery1.ParamByName('bairro').AsString:= Edit_bairro.Text;
+ZQuery1.ParamByName('cidade').AsString:= Edit_cid.Text;
+ZQuery1.ExecSQL;
+
+//Limpando dados do fornecedor
+Edit_razao.Clear;
+Edit_cnpj.Clear;
+Edit_inscri.Clear;
+Edit_rua.Clear;
+edit_num.Clear;
+Edit_comple.Clear;
+Edit_bairro.Clear;
+Edit_fone.Clear;
+Edit_mail.Clear;
+MaskEdit_cep.Clear;
+Edit_cid.Clear;
+end;
+procedure TForm_CadFornecedores.Button4Click(Sender: TObject);
+var
+cnpj:String;
+begin
+  if (Edit_razao.text = '') then
+    begin
+   showmessage ('Erro 001 - Preencha o campo Razão Social');
+   Edit_razao.SetFocus;
+   end;
+
+   if (Edit_cnpj.text = '') then
+    begin
+   showmessage ('Erro 001 - Preencha o campo CNPJ');
+   Edit_razao.SetFocus;
+   end;
+
+   if (edit_inscri.text = '') then
+    begin
+   showmessage ('Erro 001 - Preencha o campo Inscrição Estadual ');
+   Edit_razao.SetFocus;
+   end;
+
+   if (Edit_fone.text = '') then
+    begin
+   showmessage ('Erro 001 - Preencha o campo Telfone ');
+   Edit_razao.SetFocus;
+   end;
+
+   if (Edit_mail.text = '') then
+    begin
+   showmessage ('Erro 001 - Preencha o campo Email ');
+   Edit_razao.SetFocus;
+   end
+   else
+   salvar;
+//------------------------------------------------------------------------------
+
+ end;
+
+procedure TForm_CadFornecedores.Button6Click(Sender: TObject);
+begin
+edit_razao.clear;
+Edit_cnpj.Clear;
+Edit_inscri.Clear;
+//----------------------------------------------
+Edit_rua.Clear;
+edit_num.Clear;
+Edit_comple.Clear;
+Edit_bairro.Clear;
+Edit_fone.Clear;
+Edit_mail.Clear;
+MaskEdit_cep.Clear;
+Edit_cid.Clear;
+end;
+
+procedure TForm_CadFornecedores.Button7Click(Sender: TObject);
+begin
+Form_CadFornecedores.Close;
+end;
+
+procedure TForm_CadFornecedores.MaskEdit_cepExit(Sender: TObject);
+var Consulta: String;
+    TSConsulta: TStringList;
+    Resposta: TStringStream;
+begin
+try
+ if (MaskEdit_cep.Text = '     -   ') or (Length(MaskEdit_cep.Text) < 9) or  (Length(MaskEdit_cep.Text) > 9) then
+     begin
+        Application.MessageBox('CEP nulo ou inválido.', 'Atenção', mb_iconwarning+mb_ok);
+        exit;
+     end;
+     Resposta   := TStringStream.Create('');
+     TSConsulta := TStringList.Create;
+     IdHTTP1.Request.UserAgent:='Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV2';
+     TSConsulta.Add('cep=' + MaskEdit_cep.Text);
+     TSConsulta.Add('formato=xml');
+
+     IdHTTP1.Post('http://cep.republicavirtual.com.br/web_cep.php?', TSConsulta, Resposta);
+     XMLDocument1.Active := True;
+     XMLDocument1.Encoding := 'iso-8859-1';
+     XMLDocument1.LoadFromStream(Resposta);
+
+     Edit_bairro.Text:= XMLDocument1.DocumentElement.ChildNodes['bairro'].NodeValue;
+     Edit_rua.Text:= XMLDocument1.DocumentElement.ChildNodes['tipo_logradouro'].NodeValue+': '+XMLDocument1.DocumentElement.ChildNodes['logradouro'].NodeValue;
+
+     Edit_cid.Text:= XMLDocument1.DocumentElement.ChildNodes['cidade'].NodeValue+' / '+XMLDocument1.DocumentElement.ChildNodes['uf'].NodeValue;
+     TSConsulta.Free;
+     Resposta.Free;
+     XMLDocument1.Active := False;
+     edit_num.SetFocus;
+except
+Application.MessageBox('CEP não encontrado, favor inserir dados manualmente', 'Atenção', MB_ICONWARNING+MB_OK);
+
+ end;
+
+end;
+
+end.

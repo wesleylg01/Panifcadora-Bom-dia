@@ -1,0 +1,59 @@
+unit Relatorio_san;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,teste, Vcl.ExtCtrls,
+  Vcl.ImgList;
+
+type
+  TForm_entracx = class (TForm);
+  TForm_relatoriosan = class(TForm)
+    Memo1: TMemo;
+    Button1: TButton;
+    Button2: TButton;
+    Timer1: TTimer;
+    ImageList1: TImageList;
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_relatoriosan: TForm_relatoriosan;
+  hora:String;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm_relatoriosan.FormActivate(Sender: TObject);
+begin
+hora := FormatDateTime('DD/MM/YYYY  |  hh:nn',now);
+memo1.lines.add ('== Relatório de Suplementos e Sangrias ==');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Valor Total de Suplementos :'+ FormatFloat('##,##0.00', totalsuple));
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('Valor Total de Sangrias :'+ FormatFloat('##,##0.00', totalsan));
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+memo1.lines.add ('');
+Memo1.Lines.Add('=============  ' + hora);
+Memo1.Lines.Add('===========================');
+end;
+
+end.

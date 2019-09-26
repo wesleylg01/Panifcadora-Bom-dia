@@ -1,0 +1,53 @@
+program Panificadora;
+
+uses
+  Vcl.Forms,
+  Relatorio_caixa in 'Relatorio_caixa.pas' {Form_relatoriocx},
+  alterar_clientes in 'alterar_clientes.pas' {Form_ConsultaClientes},
+  Cad_Cidade in 'Cad_Cidade.pas' {Form_AlterarFornecedores},
+  Cad_Estado in 'Cad_Estado.pas' {Form_CadUsuarios},
+  Cad_Geral in 'Cad_Geral.pas' {Form_Cadgeral},
+  Cad_Produto in 'Cad_Produto.pas' {Form_CadProduto},
+  caixa in 'caixa.pas' {Form_pdv},
+  clientes in 'clientes.pas' {Form_Clientes},
+  Con_Clientes in 'Con_Clientes.pas' {Form_EditarPro},
+  Confornecedores in 'Confornecedores.pas' {Form_ConFornecedores},
+  Consulta_Produto in 'Consulta_Produto.pas' {Form_ConProduto},
+  fechar_caixa in 'fechar_caixa.pas' {Form_fecharcx},
+  fina_caixa in 'fina_caixa.pas' {Form_Final},
+  fornecedores in 'fornecedores.pas' {Form_fornecedore},
+  Login in 'Login.pas' {Form_Login},
+  padocks in 'padocks.pas' {Form_pesquisapro},
+  Principal in 'Principal.pas' {Form_Principal},
+  relatorio_clientes in 'relatorio_clientes.pas' {Form_relatoriocli},
+  relatorio_fornecedores in 'relatorio_fornecedores.pas' {Form_relatorioFor},
+  teste in 'teste.pas' {Form_entracx},
+  Trasacao in 'Trasacao.pas' {Form_CadFornecedores},
+  UDM in 'UDM.pas' {DM: TDataModule},
+  Relatorio_san in 'Relatorio_san.pas' {Form_relatoriosan},
+  mov_caixa in 'mov_caixa.pas' {Form_movicaixa},
+  Relatorio_caixa_apre in 'Relatorio_caixa_apre.pas' {Form_relatiocx1},
+  Relatorio_caixaFinal in 'Relatorio_caixaFinal.pas' {Form_RelatorioCaixa},
+  relatorio_cli_apre in 'relatorio_cli_apre.pas' {Form_Cliente},
+  relatorio_for_apre in 'relatorio_for_apre.pas' {Form_rela_forne},
+  relatorio_cli in 'relatorio_cli.pas' {Form_clientes_apre},
+  usuarios in 'usuarios.pas' {Form_usuarios},
+  sobre in 'sobre.pas' {Form_sobre},
+  backup in 'backup.pas' {Form_backup},
+  ajuda in 'ajuda.pas' {Form1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm_Principal, Form_Principal);
+  Application.CreateForm(TForm_Login, Form_Login);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TForm_clientes_apre, Form_clientes_apre);
+  Application.CreateForm(TForm_usuarios, Form_usuarios);
+  Application.CreateForm(TForm_sobre, Form_sobre);
+  Application.CreateForm(TForm_backup, Form_backup);
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

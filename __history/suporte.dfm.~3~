@@ -1,0 +1,84 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Suporte ao Cliente'
+  ClientHeight = 467
+  ClientWidth = 870
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 48
+    Top = 48
+    Width = 257
+    Height = 24
+    Caption = 'Wesley Gon'#231'alves Luciano'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 48
+    Top = 112
+    Width = 81
+    Height = 24
+    Caption = 'telefone:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 48
+    Top = 152
+    Width = 55
+    Height = 24
+    Caption = 'email:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 152
+    Top = 112
+    Width = 413
+    Height = 24
+    Caption = '16 98112 1566 (TIM) 16 99318 7665 (claro)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = cl3DDkShadow
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 128
+    Top = 152
+    Width = 218
+    Height = 24
+    Caption = 'wesleylg01@gmail.com'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = cl3DDkShadow
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+end

@@ -1,0 +1,38 @@
+object Form_rela_forne: TForm_rela_forne
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'Fornecedores'
+  ClientHeight = 487
+  ClientWidth = 387
+  Color = clActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object DBGrid1: TDBGrid
+    Left = 32
+    Top = 24
+    Width = 320
+    Height = 433
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object DataSource1: TDataSource
+    Top = 48
+  end
+  object ZQuery1: TZQuery
+    Params = <>
+    Left = 32
+    Top = 456
+  end
+end

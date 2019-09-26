@@ -1,0 +1,147 @@
+unit Alt_usuario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.ImgList,usuarios,
+  Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TForm_alt_usuario = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label8: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    ImageList1: TImageList;
+    ZQuery1: TZQuery;
+    Button3: TButton;
+    Label4: TLabel;
+    Label5: TLabel;
+    DataSource1: TDataSource;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Radio_ativo: TRadioButton;
+    Radio_desativo: TRadioButton;
+    procedure listar;
+    procedure limpar;
+    procedure atualizar;
+    procedure Button3Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_alt_usuario: TForm_alt_usuario;
+
+implementation       {   ZQuery1.Close;
+   ZQuery1.SQL.clear;
+   ZQuery1.SQL.Add('update produto set estoque = estoque - '+ FloatToStr (qtd) +' where EAN = '+ cod+ '');
+   ZQuery1.ExecSQL;}
+
+{$R *.dfm}
+
+procedure TForm_alt_usuario.atualizar;
+  var
+  cond:String;
+begin
+  // Verificando condição do usuario, e depois atualizando
+  if Radio_ativo.Checked = true then
+    cond := 'Ativo'
+  else
+    cond := 'Desativado';
+
+   ZQuery1.Close;
+   ZQuery1.SQL.clear;
+   ZQuery1.SQL.Add('update usuarios set condicao = "'+ cond +'" where cpf = "'+vlcelula+'"');
+   ZQuery1.ExecSQL;
+
+   //verificando senhas
+   if ((Edit1.Text = '') and (Edit2.Text = '')) then
+   begin
+     listar;
+   end
+   else
+    begin
+      if Edit1.Text = Edit2.Text then
+       begin
+        ZQuery1.Close;
+        ZQuery1.SQL.clear;
+        ZQuery1.SQL.Add('update usuarios set senha = "'+ Edit2.text +'" where cpf = "' +vlcelula+ '"');
+         ZQuery1.ExecSQL;
+         limpar;
+         listar;
+      end
+        else
+           begin
+            application.messagebox ('As senhas digitadas não são iguais','Atenção Usuário', MB_ICONEXCLAMATION);
+            Edit1.Clear;
+            Edit2.Clear;
+            Edit1.SetFocus;
+        end;
+    end;
+end;
+
+procedure TForm_alt_usuario.Button1Click(Sender: TObject);
+
+begin
+
+   atualizar;
+end;
+
+procedure TForm_alt_usuario.Button2Click(Sender: TObject);
+begin
+limpar;
+end;
+
+procedure TForm_alt_usuario.Button3Click(Sender: TObject);
+begin
+Form_alt_usuario.Close;
+end;
+procedure TForm_alt_usuario.FormActivate(Sender: TObject);
+begin
+  listar;
+end;
+
+procedure TForm_alt_usuario.FormCreate(Sender: TObject);
+begin
+  listar;
+end;
+
+procedure TForm_alt_usuario.limpar;
+begin
+  DBEdit3.Clear;
+  DBEdit4.Clear;
+  Edit1.Clear;
+  Edit2.Clear;
+end;
+procedure TForm_alt_usuario.listar;
+begin
+  ZQuery1.Close;
+  ZQuery1.SQL.Clear;
+  ZQuery1.SQL.Add('Select * from usuarios Where ( cpf like "'+ vlcelula +'")');
+  ZQuery1.Open;
+    if ZQuery1.FieldByName('condicao').Value = 'Ativo' then
+    begin
+      Radio_ativo.Checked := true;
+    end
+  else
+    begin
+     Radio_desativo.Checked:= true;
+    end;
+end;
+
+end.

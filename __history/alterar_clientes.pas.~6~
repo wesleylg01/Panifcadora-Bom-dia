@@ -1,0 +1,118 @@
+unit alterar_clientes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls,
+  Vcl.Mask, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,clientes,padocks,
+  Vcl.ImgList;
+
+type
+  TForm_pesquisarpro = class(TForm);
+  TDBNewNavigator = class (TDBNavigator);
+  TForm_Clientes = class(TForm);
+  TForm_ConsultaClientes = class(TForm)
+    Label20: TLabel;
+    GroupBox3: TGroupBox;
+    Label4: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    GroupBox6: TGroupBox;
+    Label15: TLabel;
+    Label16: TLabel;
+    DBEdit4: TDBEdit;
+    DBEdit5: TDBEdit;
+    GroupBox1: TGroupBox;
+    Label11: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    DBEdit7: TDBEdit;
+    DBEdit6: TDBEdit;
+    DBEdit8: TDBEdit;
+    DBEdit9: TDBEdit;
+    DBEdit10: TDBEdit;
+    DBEdit11: TDBEdit;
+    DBEdit12: TDBEdit;
+    DataSource1: TDataSource;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    ImageList1: TImageList;
+    ZQuery1: TZQuery;
+    procedure listar;
+    procedure FormActivate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_ConsultaClientes: TForm_ConsultaClientes;
+  B: TNavigateBtn;
+implementation
+          uses Buttons, Principal, Cad_Geral;
+{$R *.dfm}
+procedure TForm_ConsultaClientes.Button1Click(Sender: TObject);
+begin
+if form_cadgeral = nil then
+   Application.CreateForm(TForm_CadGeral, Form_CadGeral);
+   Form_CadGeral.ShowModal;
+end;
+
+procedure TForm_ConsultaClientes.Button2Click(Sender: TObject);
+begin
+vlcelula:= DBEdit1.Text;
+ZQuery1.Post;
+listar;
+end;
+
+procedure TForm_ConsultaClientes.Button3Click(Sender: TObject);
+begin
+ZQuery1.Cancel;
+end;
+
+procedure TForm_ConsultaClientes.Button4Click(Sender: TObject);
+begin
+if ZQuery1.RecordCount>0 then {verificar se tem registro}
+begin
+if Application.MessageBox('Tem certeza que deseja deletar este Cliente ? ','Aviso',MB_ICONQUESTION+mb_yesno)=idyes then
+ZQuery1.delete;
+Form_ConsultaClientes.close;
+Form_Clientes.Close;
+end;
+end;
+
+procedure TForm_ConsultaClientes.FormActivate(Sender: TObject);
+begin
+listar;
+end;
+
+procedure TForm_ConsultaClientes.FormCreate(Sender: TObject);
+begin
+listar;
+end;
+
+procedure TForm_ConsultaClientes.listar;
+begin
+  ZQuery1.Close;
+  ZQuery1.SQL.Clear;
+  ZQuery1.SQL.Add('Select * from pessoafisica Where ( nome like "'+ vlcelula +'")');
+  ZQuery1.Open;
+end;
+
+
+end.

@@ -1,0 +1,15 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 127
+  Width = 187
+  object ZConnection1: TZConnection
+    Connected = True
+    HostName = 'localhost'
+    Port = 3306
+    Database = 'altas_horas'
+    User = 'root'
+    Protocol = 'mysql-5'
+    Left = 64
+    Top = 32
+  end
+end

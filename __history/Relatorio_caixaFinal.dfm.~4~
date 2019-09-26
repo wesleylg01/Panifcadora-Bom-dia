@@ -1,0 +1,41 @@
+object Form_RelatorioCaixa: TForm_RelatorioCaixa
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'Relat'#243'rio de Caixa'
+  ClientHeight = 584
+  ClientWidth = 713
+  Color = clActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Memo1: TMemo
+    Left = 40
+    Top = 8
+    Width = 641
+    Height = 497
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -53
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+  end
+  object ZQuery1: TZQuery
+    Connection = DM.ZConnection1
+    SQL.Strings = (
+      '')
+    Params = <>
+    Left = 8
+    Top = 16
+  end
+end

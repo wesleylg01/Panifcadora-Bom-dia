@@ -1,0 +1,156 @@
+unit Cad_Estado;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids,
+  Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBLookup,
+  Vcl.ImgList, Vcl.ExtCtrls;
+
+type
+  TForm_CadUsuarios = class(TForm)
+    Label1: TLabel;
+    Label4: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    ImageList1: TImageList;
+    ZQuery1: TZQuery;
+    ZQuery2: TZQuery;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure listar;
+    procedure salvar;
+    procedure testar_duplicidade;
+    procedure FormActivate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_CadUsuarios: TForm_CadUsuarios;
+  Log:integer;
+
+implementation
+
+{$R *.dfm}
+          uses Registry,Login, Principal;
+procedure tform_cadusuarios.testar_duplicidade;
+var
+cont:Integer;
+begin
+  ZQuery2.Close;
+  ZQuery2.SQL.Clear;
+  ZQuery2.SQL.Add('select * from usuarios where (login like "'+Edit3.text+'")');
+  ZQuery2.Open;
+
+  if ZQuery2.fieldbyname ('cpf').value = Edit2.Text then
+  begin
+  application.MessageBox('ERRO 007 - Este CPF ja esta cadastrado','ERRO 007',MB_ICONWARNING);
+  Edit2.SetFocus;
+  end
+  else
+  cont:= cont + 1;
+
+  if (ZQuery2.FieldByName ('login').value = Edit3.Text)then
+  begin
+  application.messagebox('ERRO 008 - Nome de usuário ja cadastrados','ERRO 008',MB_ICONWARNING);
+  edit3.setfocus;
+  end
+  else
+  salvar;
+  cont := 1;
+//-------------------------------------
+ if cont = 2 then
+  salvar;
+end;
+
+procedure TForm_CadUsuarios.listar;
+begin
+   ZQuery1.Close;
+   ZQuery1.SQL.Clear;
+   ZQuery1.SQL.Add('select * from usuarios');
+   ZQuery1.Open;
+end;
+
+procedure TForm_CadUsuarios.salvar;
+begin
+// salvando dados no banco
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('insert into USUARIOS (nome,cpf,login,senha)values(:nome, :cpf, :login, :senha)');
+ZQuery1.ParamByName('nome').AsString:= Edit1.Text;
+ZQuery1.ParamByName('cpf').AsString:= Edit2.Text;
+ZQuery1.ParamByName('login').AsString:= Edit3.Text;
+ZQuery1.ParamByName('senha').AsString:= Edit4.Text;
+ZQuery1.ExecSQL;
+Edit1.Clear;
+Edit2.clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit1.SetFocus;
+end;
+
+
+procedure TForm_CadUsuarios.Button1Click(Sender: TObject);
+var
+nome,cpf: String;
+begin
+// testando se os campos estão preenchidos
+if Edit1.Text = '' then
+ begin
+  showmessage ('Erro 001 - Preencha o campo NOME');
+  Edit1.SetFocus;
+ end;
+
+ if Edit2.Text = '' then
+ begin
+  showmessage ('Erro 001 - Preencha o campo CPF');
+  Edit1.SetFocus;
+ end;
+
+ begin
+ if Edit3.Text = '' then
+ begin
+   showmessage ('Erro 001 - Preencha o campo LOGIN');
+   Edit1.SetFocus;
+ end;
+ end;
+ if Edit4.Text = '' then
+ begin
+   showmessage ('Erro 001 - Preencha o campo SENHA');
+   Edit1.SetFocus;
+  end
+  else
+  testar_duplicidade;
+  end;
+procedure TForm_CadUsuarios.Button2Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit1.SetFocus;
+end;
+
+procedure TForm_CadUsuarios.FormActivate(Sender: TObject);
+begin
+listar;
+end;
+
+end.

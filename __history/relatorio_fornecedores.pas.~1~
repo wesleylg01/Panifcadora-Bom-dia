@@ -1,0 +1,55 @@
+unit relatorio_fornecedores;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, Vcl.ImgList, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm_relatorioFor = class(TForm)
+    ZQuery1: TZQuery;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    Button2: TButton;
+    Button1: TButton;
+    ImageList1: TImageList;
+    Button3: TButton;
+    procedure Button3Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure listar;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_relatorioFor: TForm_relatorioFor;
+
+implementation
+        uses Cad_cidade;
+{$R *.dfm}
+
+procedure TForm_relatorioFor.Button3Click(Sender: TObject);
+begin
+   if Form_AlterarFornecedores = nil then
+   Application.CreateForm(TForm_AlterarFornecedores, Form_AlterarFornecedores);
+   Form_AlterarFornecedores.ShowModal;
+   Form_Relatoriofor.Close;
+end;
+
+procedure TForm_relatorioFor.FormActivate(Sender: TObject);
+begin
+listar;
+end;
+procedure TForm_relatorioFor.listar;
+begin
+ ZQuery1.Close;
+ ZQuery1.SQL.Clear;
+ ZQuery1.SQL.Add('select * from fornecedor');
+ ZQuery1.Open;
+end;
+
+end.

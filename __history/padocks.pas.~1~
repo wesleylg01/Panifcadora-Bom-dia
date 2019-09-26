@@ -1,0 +1,250 @@
+unit padocks;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.ImgList,
+  Vcl.ComCtrls;
+
+type
+  TForm_pesquisapro = class(TForm)
+    DBGrid1: TDBGrid;
+    ZQuery1: TZQuery;
+    Button2: TButton;
+    Button3: TButton;
+    PageControl1: TPageControl;
+    ImageList1: TImageList;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    Label3: TLabel;
+    Edit2: TEdit;
+    Label4: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    Button4: TButton;
+    DataSource1: TDataSource;
+    CPF: TLabel;
+    Label2: TLabel;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Button5: TButton;
+    Button6: TButton;
+    Label1: TLabel;
+    Label5: TLabel;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Button7: TButton;
+    Button8: TButton;
+    DBGrid2: TDBGrid;
+    DBGrid3: TDBGrid;
+    DBGrid4: TDBGrid;
+    procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Edit2Click(Sender: TObject);
+    procedure Edit1Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure PageControl1Enter(Sender: TObject);
+    procedure TabSheet2Enter(Sender: TObject);
+    procedure TabSheet1Enter(Sender: TObject);
+    procedure TabSheet3Enter(Sender: TObject);
+    procedure Edit3Click(Sender: TObject);
+    procedure Edit4Click(Sender: TObject);
+    procedure Edit5Click(Sender: TObject);
+    procedure Edit6Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_pesquisapro: TForm_pesquisapro;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm_pesquisapro.Button1Click(Sender: TObject);
+
+begin
+if (Edit1.Text = '') then
+    ShowMessage('Favor Insirir o nome do Produto');
+//------------------------------------------------------------------------------
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from produto Where (descricao like "%'+ Edit1.text+'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Button2Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+ZQuery1.SQL.Clear;
+DBGrid1.Visible:= false;
+DBGrid2.Visible:= false;
+DBGrid3.Visible:= false;
+DBGrid4.Visible:= true;
+end;
+
+procedure TForm_pesquisapro.Button3Click(Sender: TObject);
+begin
+Form_pesquisapro.Close;
+end;
+
+procedure TForm_pesquisapro.Button4Click(Sender: TObject);
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from produto Where (EAN like "%'+ Edit2.Text +'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Button5Click(Sender: TObject);
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from pessoafisica Where (cpf like "%'+ Edit3.Text +'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Button6Click(Sender: TObject);
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from pessoafisica Where (nome like "%'+ Edit4.Text +'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Button7Click(Sender: TObject);
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from fornecedor Where (cnpj like "%'+ Edit5.Text +'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Button8Click(Sender: TObject);
+begin
+ZQuery1.Close;
+ZQuery1.SQL.Clear;
+ZQuery1.SQL.Add('Select * from fornecedor Where (razao like "%'+ Edit6.Text +'%")');
+ZQuery1.Open;
+end;
+
+procedure TForm_pesquisapro.Edit1Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+ZQuery1.SQL.Clear;
+
+end;
+
+procedure TForm_pesquisapro.Edit2Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+
+end;
+
+procedure TForm_pesquisapro.Edit3Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+end;
+
+procedure TForm_pesquisapro.Edit4Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+end;
+
+procedure TForm_pesquisapro.Edit5Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+end;
+
+procedure TForm_pesquisapro.Edit6Click(Sender: TObject);
+begin
+Edit1.Clear;
+Edit2.Clear;
+Edit3.Clear;
+Edit4.Clear;
+Edit5.Clear;
+Edit6.Clear;
+end;
+
+procedure TForm_pesquisapro.FormActivate(Sender: TObject);
+begin
+Edit2.SetFocus;
+end;
+
+procedure TForm_pesquisapro.PageControl1Enter(Sender: TObject);
+begin
+DBGrid1.Visible:= true;
+DBGrid2.Visible:= false;
+DBGrid3.Visible:= false;
+DBGrid4.Visible:= false;
+end;
+
+procedure TForm_pesquisapro.TabSheet1Enter(Sender: TObject);
+begin
+DBGrid4.Visible:= false;
+DBGrid1.Visible:= true;
+DBGrid2.Visible:= false;
+DBGrid3.Visible:= false;
+
+ZQuery1.SQL.Clear;
+end;
+
+procedure TForm_pesquisapro.TabSheet2Enter(Sender: TObject);
+begin
+DBGrid1.Visible:= false;
+DBGrid3.Visible:= false;
+DBGrid2.Visible:= true;
+DBGrid4.Visible:= false;
+ZQuery1.SQL.Clear;
+Edit3.SetFocus;
+end;
+
+procedure TForm_pesquisapro.TabSheet3Enter(Sender: TObject);
+begin
+DBGrid1.Visible:= false;
+DBGrid2.Visible:= false;
+DBGrid3.Visible:= true;
+DBGrid4.Visible:= false;
+ZQuery1.SQL.Clear;
+Edit5.SetFocus;
+end;
+
+end.

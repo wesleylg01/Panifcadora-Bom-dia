@@ -1,0 +1,96 @@
+unit Con_Clientes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Mask, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,Consulta_Produto;
+
+type
+ TDBNewNavigator = class (TDBNavigator);
+  TForm_ConProduto = class(TForm);
+  TForm_EditarPro = class(TForm)
+    DBEdit1: TDBEdit;
+    DataSource1: TDataSource;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit6: TDBEdit;
+    DBEdit7: TDBEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label1: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label9: TLabel;
+    ZQuery1: TZQuery;
+    DBNavigator1: TDBNavigator;
+    procedure FormActivate(Sender: TObject);
+    procedure Listar;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form_EditarPro: TForm_EditarPro;
+
+implementation
+     uses Buttons;
+{$R *.dfm}
+
+procedure TForm_EditarPro.FormActivate(Sender: TObject);
+begin
+  listar;
+end;
+procedure TForm_EditarPro.FormCreate(Sender: TObject);
+var
+  B: TNavigateBtn;
+begin
+
+
+     for B := Low(TNavigateBtn) to High(TNavigateBtn) do
+    with TDBNewNavigator(DBNavigator1).Buttons[B] do
+    begin
+      Case Index of
+       nbFirst : Caption := 'Primeiro';
+
+        nbPrior : Caption := 'Anterior';
+
+        nbNext : Caption := 'Próximo';
+
+        nbLast : Caption := 'Último';
+
+        nbInsert : Caption := 'Novo';
+
+        nbDelete : Caption := 'Excluir';
+
+        nbEdit : Caption := 'Editar';
+
+        nbPost : Caption := 'Salvar';
+
+        nbCancel : Caption := 'Cancelar';
+
+        nbRefresh : Caption := 'Atualizar';
+      End;
+      Layout := blGlyphTop; { uses Buttons}
+      Hint := Caption;
+      ShowHint := True;
+    end;
+  end;
+
+procedure TForm_EditarPro.Listar;
+begin
+  ZQuery1.Close;
+  ZQuery1.SQL.Clear;
+   ZQuery1.SQL.Add('Select * from produto Where ( descricao like "'+ vlcelula +'")');
+  ZQuery1.Open;
+end;
+
+
+end.
